@@ -5,7 +5,7 @@
       输入:
       <input type="text" v-model="title" @keydown.enter="addTodo" />
       &nbsp;
-      <button @click="clear" v-if="!(undosLen === todosLen)">&nbsp;清理&nbsp;</button>
+      <button @click="clear" v-if="dosLen">&nbsp;清理&nbsp;</button>
     </div>
     <ul class="todos-ul" v-if="todos.length > 0">
       <li class="todos-li" v-for="item in todos" :key="item.id">
@@ -15,8 +15,8 @@
     </ul>
     <div v-else>暂无数据</div>
     <div class="undo-todo">
-      <span style="padding-right: 5px">未做/全部:</span>
-      <span style="color: red">{{ undosLen }}/</span>
+      <span style="padding-right: 5px">已做/全部:</span>
+      <span style="color: red">{{ dosLen }}/</span>
       <span style="color: red">{{ todosLen }}</span>
     </div>
     <div class="select-all">
@@ -44,9 +44,9 @@ function addTodo() {
   todos.value.push({ id: String(todos.value.length + 1), title: title.value, done: false });
   title.value = '';
 }
-//未做长度
-let undosLen = computed(() => {
-  return todos.value.filter(item => !item.done).length;
+//已做长度
+let dosLen = computed(() => {
+  return todos.value.filter(item => item.done).length;
 });
 //全部长度
 let todosLen = computed(() => {
@@ -54,7 +54,7 @@ let todosLen = computed(() => {
 });
 let allDone = computed({
   get() {
-    return undosLen.value === 0; //未做长度 === 0
+    return dosLen.value === todosLen.value; //已做 === 全部todo
   },
   set(val) {
     console.log(`alldone val:`, val);
@@ -66,7 +66,7 @@ let allDone = computed({
 </script>
 
 /* style 标签放置 CSS 样式 */
-<style scoped>
+<style lang="scss" scoped>
 ul,
 li {
   list-style: none;

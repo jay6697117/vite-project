@@ -6,4 +6,5 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+</style>
