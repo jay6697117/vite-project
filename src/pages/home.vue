@@ -1,10 +1,10 @@
 <template>
   <img width="60" height="60" alt="Vue logo" src="@/assets/logo.png" />
-  <HelloWorld msg="你好 首页" />
+  <Todolist />
 </template>
 
 <script setup>
-import HelloWorld from '@/components/HelloWorld.vue';
+import Todolist from '@/components/Todolist.vue';
 </script>
 
 <style scoped></style>

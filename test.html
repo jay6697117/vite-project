@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      [v-cloak] {
+        display: none !important;
+      }
+
+      ul,
+      li {
+        list-style: none;
+      }
+
+      #app {
+        padding: 20px;
+      }
+
+      .input > *{
+        height: 22px;
+      }
+
+      .todos {
+        padding: 10px 0;
+      }
+
+      .title {
+        padding-left: 5px;
+      }
+      .done {
+        color: #ccc;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- view -->
+    <div id="app" v-cloak>
+      <h2>title:{{title}}</h2>
+      <div class="input">
+        输入:
+        <input type="text" v-model="title" @keydown.enter="addTodo" />
+        &nbsp;
+        <button @click="clear" v-if="!(undosLen === todosLen)">&nbsp;清理&nbsp;</button>
+      </div>
+      <ul class="todos" v-if="todos.length > 0">
+        <li v-for="item in todos" :key="item.id">
+          <input class="checkbox" type="checkbox" v-model="item.done" />
+          <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
+        </li>
+      </ul>
+      <div v-else>暂无数据</div>
+      <div>
+        <span>{{undosLen}}</span>
+        /
+        <span>{{todosLen}}</span>
+      </div>
+      <div>
+        全选
+        <input type="checkbox" v-model="allDone" />
+        &nbsp;
+        <span>allDone: {{allDone}}</span>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- viewModel -->
+    <script>
+      const App = {
+        data() {
+          return {
+            title: '',
+            todos: [
+              { id: '1', title: '吃饭', done: false },
+              { id: '2', title: '睡觉', done: true }
+            ]
+          };
+        },
+        computed: {
+          //未做长度
+          undosLen() {
+            return this.todos.filter(item => !item.done).length;
+          },
+          //全部长度
+          todosLen() {
+            return this.todos.length;
+          },
+          allDone: {
+            get() {
+              return this.undosLen === 0; //未做长度 === 0
+            },
+            set(val) {
+              console.log(`alldone val:`, val);
+              this.todos.forEach(element => {
+                element.done = val;
+              });
+            }
+          }
+        },
+        methods: {
+          clear() {
+            this.todos = this.todos.filter(item => !item.done);
+          },
+          addTodo() {
+            this.todos.push({ id: String(this.todos.length + 1), title: this.title, done: false });
+            this.title = '';
+          }
+        }
+      };
+      // 启动应用
+      Vue.createApp(App).mount('#app');
+    </script>
+  </body>
+</html>

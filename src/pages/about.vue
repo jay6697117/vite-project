@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld msg="你好 关于页面" />
+  <HelloWorld msg="About页面" />
 </template>
 
 <script setup>
