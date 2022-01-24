@@ -6,9 +6,17 @@
   </div>
   <hr />
   <router-view></router-view>
+  <hr />
+  <div style="background-color: #ccc">
+    <span style="margin-right: 10px">x:{{ x }}</span>
+    <span>y:{{ y }}</span>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useMouse } from '@/utils/mouse.js';
+let { x, y } = useMouse();
+</script>
 
 <style lang="scss">
 #app {
