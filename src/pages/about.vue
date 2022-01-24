@@ -1,10 +1,10 @@
 <template>
-  <HelloWorld msg="About页面" />
+  <Count />
 </template>
 
 <script setup>
 import { onMounted, getCurrentInstance } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue';
+import Count from '@/components/Count.vue';
 
 onMounted(() => {
   console.log('getCurrentInstance() :>> ', getCurrentInstance());
