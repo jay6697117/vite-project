@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="app"></h1>
+    <input type="text" id="input" />
+    <button onclick="handleClick()">执行</button>
+    <script>
+      let _getDouble = n => n * 2;
+      let obj = {};
+      let _count = 1;
+      let _double = _getDouble(_count);
+      document.getElementById('app').innerHTML = _double;
+
+      Object.defineProperty(obj, 'count', {
+        get() {
+          return _count;
+        },
+        set(newVal) {
+          console.log('set newVal :>> ', newVal);
+          _count = newVal;
+          _double = _getDouble(newVal);
+          document.getElementById('app').innerHTML = _double;
+        }
+      });
+
+      document.getElementById('input').oninput = e => {
+        obj.count = e.target.value;
+      };
+
+      function handleClick() {
+        obj.count = document.getElementById('input').value;
+      }
+    </script>
+  </body>
+</html>

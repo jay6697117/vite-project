@@ -15,6 +15,8 @@
 
 <script setup>
 import { useMouse } from '@/utils/mouse.js';
+import proxy from '@/utils/proxy.js';
+proxy();
 let { x, y } = useMouse();
 </script>
 

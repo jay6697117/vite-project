@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="app"></h1>
+    <input type="text" id="input" />
+    <button onclick="handleClick()">执行</button>
+
+    <script>
+      let getDouble = n => n * 2; //函数
+      let obj = { count: 1 }; //目标对象
+      let double = getDouble(obj.count); //计算结果
+      document.getElementById('app').innerHTML = double;
+
+      let proxy = new Proxy(obj, {
+        get: function (target, prop) {
+          console.log('get target:', target);
+          console.log('get prop:', prop);
+          return target[prop];
+        },
+        set: function (target, prop, value) {
+          console.log('set target:', target);
+          console.log('set prop:', prop);
+          target[prop] = value;
+          if (prop === 'count') {
+            double = getDouble(value);
+            document.getElementById('app').innerHTML = double;
+          }
+        },
+        deleteProperty(target, prop) {
+          console.log('deleteProperty target:', target);
+          console.log('deleteProperty prop:', prop);
+          delete target[prop]; //删除prop属性
+          if (prop === 'count') {
+            double = getDouble(undefined);
+            document.getElementById('app').innerHTML = double;
+          }
+        }
+      });
+
+      document.getElementById('input').oninput = e => {
+        proxy.count = e.target.value;
+      };
+
+      // console.log(obj.count, double); // 1 2
+      // console.log('------');
+      // console.log('proxy.count 1:', proxy.count);
+      // console.log('------');
+
+      // console.log('------------------------------------------------------------------');
+
+      // proxy.count = 2;
+      // console.log(obj.count, double); // 2 4
+      // console.log('------');
+      // console.log('proxy.count 2:', proxy.count);
+      // console.log('------');
+
+      // console.log('------------------------------------------------------------------');
+
+      // delete proxy.count;
+      // // 删除属性后，我们打印log时，输出的结果就会是 undefined NaN
+      // console.log(obj.count, double);
+      // console.log('------');
+      // console.log('proxy.count 3:', proxy.count);
+      // console.log('------');
+
+      function handleClick() {
+        delete proxy.count;
+        // 删除属性后，我们打印log时，输出的结果就会是 undefined NaN
+        console.log(obj.count, double);
+        console.log('------');
+        console.log('proxy.count 3:', proxy.count);
+        console.log('------');
+        // obj.count = document.getElementById('input').value;
+      }
+    </script>
+  </body>
+</html>
