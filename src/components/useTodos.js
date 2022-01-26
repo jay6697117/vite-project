@@ -1,8 +1,9 @@
-import { ref, computed } from 'vue';
+import { ref, watchEffect, computed } from 'vue';
+import useStorage from '@/utils/useStorage.js';
 
 export default function useTodos() {
   let title = ref('');
-  let todos = ref([
+  let todos = useStorage('TODOS_VALUE', [
     { id: '1', title: '吃饭', done: false },
     { id: '2', title: '睡觉', done: true }
   ]);
