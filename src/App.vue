@@ -11,12 +11,19 @@
     <span style="margin-right: 10px">x:{{ x }}</span>
     <span>y:{{ y }}</span>
   </div>
+  <hr />
+  <div style="margin-top: 10px">
+    <button @click="toggle">{{ isFullscreen ? '退出全屏' : '开启全屏' }}</button>
+  </div>
 </template>
 
 <script setup>
 import { useMouse } from '@/utils/mouse.js';
 import proxy from '@/utils/proxy.js';
 proxy();
+import { useFullscreen } from '@vueuse/core';
+const { isFullscreen, toggle } = useFullscreen();
+
 let { x, y } = useMouse();
 </script>
 

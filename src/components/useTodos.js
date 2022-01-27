@@ -1,4 +1,4 @@
-import { ref, watchEffect, computed } from 'vue';
+import { ref, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
 
 export default function useTodos() {
