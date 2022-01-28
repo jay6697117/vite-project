@@ -7,7 +7,7 @@
   <hr />
   <router-view></router-view>
   <hr />
-  <div style="background-color: #ccc">
+  <div style="background-color: #ccc;">
     <span style="margin-right: 10px">x:{{ x }}</span>
     <span>y:{{ y }}</span>
   </div>
