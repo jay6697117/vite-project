@@ -12,7 +12,8 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, defineEmits } from 'vue';
+// import { ref, computed, defineProps, defineEmits } from 'vue';
+import { ref, computed} from 'vue';
 //props
 const props = defineProps({
   rate: {
