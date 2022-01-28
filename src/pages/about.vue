@@ -4,7 +4,8 @@
   <button @click="handleReset">重置</button>
   <hr />
   <h1>你的评分是: {{ rate }}</h1>
-  <Rate :rate="rate" :color="color" @update-rate="updateRate" />
+  <!-- <Rate :rate="rate" :color="color" @updateRate="updateRate" /> -->
+  <Rate v-model:rate="rate" :color="color" />
 </template>
 
 <script setup>
@@ -22,10 +23,9 @@ function handleUpdate() {
 function handleReset() {
   reset();
 }
-function updateRate(val) {
-  console.log('updateRate val :>> ', val);
-  rate.value = val;
-}
+// function updateRate(val) {
+//   rate.value = val;
+// }
 onMounted(() => {
   console.log('getCurrentInstance() :>> ', getCurrentInstance());
 });

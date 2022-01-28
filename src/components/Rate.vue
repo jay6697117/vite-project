@@ -12,8 +12,7 @@
 </template>
 
 <script setup>
-// import { ref, computed, defineProps, defineEmits } from 'vue';
-import { ref, computed} from 'vue';
+import { ref, computed } from 'vue';
 //props
 const props = defineProps({
   rate: {
@@ -47,10 +46,12 @@ function mouseleave() {
   tmpRate.value = props.rate;
 }
 const solidWidth = computed(() => `width:${tmpRate.value * fontSizeNum.value}px;`);
-let emits = defineEmits(['update-rate']); // 定义emits
+// let emits = defineEmits(['updateRate']); // 定义emits
+let emits = defineEmits(['update:rate']); // 定义emits
 function onRate(num) {
   console.log('onRate num :>> ', num);
-  emits('update-rate', num); //通过@引用
+  emits('update:rate', num);
+  // emits('updateRate', num); //通过@引用
 }
 </script>
 
