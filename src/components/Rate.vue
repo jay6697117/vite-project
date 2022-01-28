@@ -1,17 +1,20 @@
 <template>
   <div class="rate" :style="colorStyle">
-    <div class="rate" @mouseout="mouseOut">
-      <span class="hollow"><span @mouseover="mouseOver(num)" v-for="num in 5" :key="num">☆</span></span>
-      <span class="solid" :style="fontwidth">
-        <span @click="onRate(num)" @mouseover="mouseOver(num)" v-for="num in 5" :key="num">★</span>
-      </span>
+    <div class="rate" @mouseleave="mouseleave">
+      <div class="hollow">
+        <span @mouseenter="mouseenter(num)" v-for="num in 5" :key="num">☆</span>
+      </div>
+      <div class="solid" :style="solidWidth">
+        <span @click="onRate(num)" @mouseenter="mouseenter(num)" v-for="num in 5" :key="num">★</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, computed } from 'vue';
-let props = defineProps({
+import { ref, computed, defineProps, defineEmits } from 'vue';
+//props
+const props = defineProps({
   rate: {
     type: Number,
     default: 0
@@ -21,22 +24,31 @@ let props = defineProps({
     default: 'red'
   }
 });
-let colorStyle = computed(() => {
+
+const fontSizeNum = ref(32);
+const fontSizeStr = ref(fontSizeNum.value + 'px');
+
+//计算属性
+const colorStyle = computed(() => {
   return `color: ${props.color}`;
 });
 
 // 评分宽度
-let width = ref(props.rate);
-function mouseOver(i) {
-  width.value = i;
+const tmpRate = ref(props.rate);
+function mouseenter(i) {
+  console.log('mouseenter run');
+  console.log('mouseenter i :>> ', i);
+  tmpRate.value = i;
 }
-function mouseOut() {
-  width.value = props.rate;
+function mouseleave() {
+  console.log('mouseleave run');
+  console.log('props.rate :>> ', props.rate);
+  tmpRate.value = props.rate;
 }
-const fontwidth = computed(() => `width:${width.value}em;`);
+const solidWidth = computed(() => `width:${tmpRate.value * fontSizeNum.value}px;`);
 let emits = defineEmits(['update-rate']); // 定义emits
 function onRate(num) {
-  console.log('num :>> ', num);
+  console.log('onRate num :>> ', num);
   emits('update-rate', num); //通过@引用
 }
 </script>
@@ -46,7 +58,7 @@ function onRate(num) {
   width: 160px;
   margin: 10px auto;
   background-color: #ccc;
-  font-size: 32px;
+  font-size: v-bind(fontSizeStr);
   position: relative;
 
   .hollow {

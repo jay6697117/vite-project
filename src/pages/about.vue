@@ -4,6 +4,7 @@
   <button @click="handleReset">重置</button>
   <hr />
   <h1>你的评分是: {{ rate }}</h1>
+  <!-- <Rate :rate="rate" @update-rate="updateRate" /> -->
   <Rate :rate="rate" :color="color" @update-rate="updateRate" />
 </template>
 
