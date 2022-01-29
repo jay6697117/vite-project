@@ -1,6 +1,8 @@
 <template>
   <div class="rate" :style="colorStyle">
-    <div class="rate" @mouseleave="mouseleave">
+    <!--  具名插槽 -->
+    <slot name="header"></slot>
+    <div class="rate-star" @mouseleave="mouseleave">
       <div class="hollow">
         <span @mouseenter="mouseenter(num)" v-for="num in 5" :key="num">☆</span>
       </div>
@@ -57,26 +59,27 @@ function onRate(num) {
 
 <style lang="scss" scoped>
 .rate {
-  width: 160px;
-  margin: 10px auto;
-  background-color: #ccc;
-  font-size: v-bind(fontSizeStr);
-  position: relative;
+  padding: 10px 0;
+  background-color: #eee;
+  .rate-star {
+    width: 300px;
+    margin: 10px auto;
+    background-color: #ccc;
+    font-size: v-bind(fontSizeStr);
+    position: relative;
 
-  .hollow {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-  }
+    .hollow {
+      width: 160px;
+      margin-left: 70px;
+    }
 
-  .solid {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+    .solid {
+      width: 160px;
+      position: absolute;
+      top: 0;
+      left: 70px;
+      overflow: hidden;
+    }
   }
 }
 </style>

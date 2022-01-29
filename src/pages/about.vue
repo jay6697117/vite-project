@@ -3,9 +3,13 @@
   <button @click="handleUpdate">更新</button>
   <button @click="handleReset">重置</button>
   <hr />
-  <h1>你的评分是: {{ rate }}</h1>
   <!-- <Rate :rate="rate" :color="color" @updateRate="updateRate" /> -->
-  <Rate v-model:rate="rate" :color="color" />
+  <Rate v-model:rate="rate" :color="color">
+    <template v-slot:header>
+      <img width="40" src="/favicon.ico" />
+      <div class="rate-slot">我的课程评分:{{ rate }}</div>
+    </template>
+  </Rate>
 </template>
 
 <script setup>
@@ -40,5 +44,10 @@ button {
 }
 button:last-child {
   margin-right: 0;
+}
+
+.rate-slot {
+  padding: 10px 0;
+  background-color: lightblue;
 }
 </style>
