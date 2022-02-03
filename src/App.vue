@@ -3,11 +3,13 @@
     <router-link to="/">首页</router-link>
     |
     <router-link to="/about">关于</router-link>
+    |
+    <router-link to="/demo">Demo</router-link>
   </div>
   <hr />
   <router-view></router-view>
   <hr />
-  <div style="background-color: #ccc;margin-top: 10px;">
+  <div style="background-color: #ccc; margin-top: 10px">
     <span style="margin-right: 10px">x:{{ x }}</span>
     <span>y:{{ y }}</span>
   </div>
