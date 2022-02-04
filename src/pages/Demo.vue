@@ -4,6 +4,13 @@
     <div class="box1" :style="{ width: `${width}px` }" :class="{ 'box1-animation': box1Animation }"></div>
     <button @click="changeWidth">加宽</button>
     <button @click="changeWidth1">开启动画</button>
+    <hr />
+    <div class="transition-style">
+      <transition name="fade">
+        <h1 v-show="showTitle">{{ title }}</h1>
+      </transition>
+      <button @click="switchFn">{{ switchText }}</button>
+    </div>
   </div>
 </template>
 
@@ -11,14 +18,23 @@
 import { ref, computed } from 'vue';
 let width = ref(100);
 let box1Animation = ref(false);
+let title = ref('你好 Vue3');
+let showTitle = ref(true);
 let left = computed(() => {
   return `calc(100% - ${width.value}px)`;
+});
+let switchText = computed(() => {
+  return showTitle.value ? '隐藏' : '显示';
 });
 function changeWidth() {
   width.value += 100;
 }
 function changeWidth1() {
   box1Animation.value = !box1Animation.value;
+}
+
+function switchFn() {
+  showTitle.value = !showTitle.value;
 }
 </script>
 
@@ -64,6 +80,23 @@ function changeWidth1() {
     border-radius: 10px;
     border: none;
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .transition-style {
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 5s ease;
+    }
+
+    .fade-enter-to,
+    .fade-leave-from {
+      opacity: 1;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      opacity: 0;
+    }
   }
 }
 </style>
