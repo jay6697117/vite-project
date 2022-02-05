@@ -6,7 +6,7 @@
     <button @click="changeWidth1">开启动画</button>
     <hr />
     <div class="transition-style">
-      <transition name="fade">
+      <transition name="fade6">
         <h1 v-show="showTitle">{{ title }}</h1>
       </transition>
       <button @click="switchFn">{{ switchText }}</button>
@@ -83,18 +83,18 @@ function switchFn() {
   }
 
   .transition-style {
-    .fade-enter-active,
-    .fade-leave-active {
+    .fade6-enter-active,
+    .fade6-leave-active {
       transition: opacity 5s ease;
     }
 
-    .fade-enter-to,
-    .fade-leave-from {
+    .fade6-enter-to,
+    .fade6-leave-from {
       opacity: 1;
     }
 
-    .fade-enter-from,
-    .fade-leave-to {
+    .fade6-enter-from,
+    .fade6-leave-to {
       opacity: 0;
     }
   }

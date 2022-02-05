@@ -2,6 +2,7 @@ import { ref, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
 
 export default function useTodos() {
+  let showModal = ref(false);
   let title = ref('');
   let todos = useStorage('TODOS_VALUE', [
     { id: '1', title: '吃饭', done: false },
@@ -12,6 +13,15 @@ export default function useTodos() {
     todos.value = todos.value.filter(item => !item.done);
   }
   function addTodo() {
+    if (!title.value) {
+      //输入内容为空
+      showModal.value = true;
+      setTimeout(() => {
+        showModal.value = false;
+      }, 2500);
+      return;
+    }
+    //输入内容为真
     todos.value.push({ id: String(todos.value.length + 1), title: title.value, done: false });
     title.value = '';
   }
@@ -35,5 +45,5 @@ export default function useTodos() {
     }
   });
 
-  return { title, todos, clear, addTodo, dosLen, todosLen, allDone };
+  return { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone };
 }
