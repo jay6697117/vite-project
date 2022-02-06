@@ -54,14 +54,14 @@ let { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = use
       justify-content: center;
       align-content: center;
       color: white;
-      background: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.5);
     }
   }
 
   // 动画:start
   .modal-wrap.modal-enter-active,
   .modal-wrap.modal-leave-active {
-    transition: all 1.5s ease;
+    transition: all 1s ease;
   }
 
   .modal-wrap.modal-enter-to,
@@ -70,13 +70,10 @@ let { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = use
     transform: translate(-50%, 0);
   }
 
-  .modal-wrap.modal-enter-from {
-    opacity: 0;
-    transform: translate(-50%, -200px);
-  }
-
+  .modal-wrap.modal-enter-from,
   .modal-wrap.modal-leave-to {
     opacity: 0;
+    transform: translate(-50%, -400px);
   }
   // 动画:end
 

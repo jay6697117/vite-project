@@ -18,7 +18,7 @@ export default function useTodos() {
       showModal.value = true;
       setTimeout(() => {
         showModal.value = false;
-      }, 2500);
+      }, 2000);
       return;
     }
     //输入内容为真
