@@ -39,7 +39,7 @@
 
 <script setup>
 import useTodos from '@/utils/useTodos';
-let { shuffle, showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = useTodos();
+let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone } = useTodos();
 </script>
 
 <style lang="scss" scoped>

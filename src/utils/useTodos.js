@@ -49,5 +49,5 @@ export default function useTodos() {
     }
   });
 
-  return { shuffle, showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone };
+  return { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone };
 }
