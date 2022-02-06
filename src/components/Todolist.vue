@@ -1,7 +1,7 @@
 <template>
   <div class="todos">
-    <transition name="modal" class="modal1111">
-      <div class="modal-wrap" v-show="showModal"><div class="modal">哥，你啥也没输入!</div></div>
+    <transition name="modal">
+      <div class="modal-wrap" v-show="showModal"><div class="modal">哥, 你啥也没输入！</div></div>
     </transition>
 
     <h2>title:{{ title }}</h2>
@@ -11,12 +11,14 @@
       &nbsp;
       <button @click="clear" v-if="dosLen">&nbsp;清理&nbsp;</button>
     </div>
-    <ul class="todos-ul" v-if="todos.length > 0">
-      <li class="todos-li" v-for="item in todos" :key="item.id">
-        <input class="checkbox" type="checkbox" v-model="item.done" />
-        <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-      </li>
-    </ul>
+    <div class="todos-ul" v-if="todos.length">
+      <transition-group name="flip-list" tag="ul">
+        <li class="todos-li" v-for="item in todos" :key="item.id">
+          <input class="checkbox" type="checkbox" v-model="item.done" />
+          <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
+        </li>
+      </transition-group>
+    </div>
     <div v-else>暂无数据</div>
     <div class="undo-todo">
       <span style="padding-right: 5px">已做/全部:</span>
@@ -29,15 +31,17 @@
       &nbsp;
       <span>allDone: {{ allDone }}</span>
     </div>
+    <div style="padding: 10px 0">
+      <button style="padding: 2px 8px" @click="shuffle">洗牌</button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import useTodos from '@/utils/useTodos';
-let { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = useTodos();
+let { shuffle, showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = useTodos();
 </script>
 
-/* style 标签放置 CSS 样式 */
 <style lang="scss" scoped>
 .todos {
   .modal-wrap {
@@ -57,53 +61,64 @@ let { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone } = use
       background-color: rgba(0, 0, 0, 0.5);
     }
   }
-
   // 动画:start
-  .modal-wrap.modal-enter-active,
-  .modal-wrap.modal-leave-active {
+  .modal-enter-active,
+  .modal-leave-active {
     transition: all 1s ease;
   }
-
-  .modal-wrap.modal-enter-to,
-  .modal-wrap.modal-leave-from {
+  .modal-enter-to,
+  .modal-leave-from {
     opacity: 1;
     transform: translate(-50%, 0);
   }
-
-  .modal-wrap.modal-enter-from,
-  .modal-wrap.modal-leave-to {
+  .modal-enter-from,
+  .modal-leave-to {
     opacity: 0;
     transform: translate(-50%, -400px);
   }
   // 动画:end
-
   .input > * {
     height: 22px;
   }
-
   .todos-ul {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-  }
 
-  .todos-li {
-    padding-top: 5px;
-    width: 200px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  .title {
-    padding-left: 5px;
-  }
-  .done {
-    color: #ccc;
-    text-decoration: line-through;
+    .todos-li {
+      padding-top: 5px;
+      width: 200px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .title {
+      padding-left: 5px;
+    }
+    .done {
+      color: #ccc;
+      text-decoration: line-through;
+    }
+    .flip-list-move {
+      transition: transform 2s ease;
+    }
+    .flip-list-enter-active,
+    .flip-list-leave-active {
+      transition: all 10s ease;
+    }
+    .flip-list-enter-to,
+    .flip-list-leave-from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .flip-list-enter-from,
+    .flip-list-leave-to {
+      opacity: 0;
+      transform: translateX(100px);
+    }
   }
 
   .undo-todo {

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { ref, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
 
@@ -9,6 +10,9 @@ export default function useTodos() {
     { id: '2', title: '睡觉', done: true }
   ]);
 
+  function shuffle() {
+    todos.value = _.shuffle(todos.value);
+  }
   function clear() {
     todos.value = todos.value.filter(item => !item.done);
   }
@@ -45,5 +49,5 @@ export default function useTodos() {
     }
   });
 
-  return { showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone };
+  return { shuffle, showModal, title, todos, clear, addTodo, dosLen, todosLen, allDone };
 }
