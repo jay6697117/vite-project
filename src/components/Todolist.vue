@@ -52,8 +52,10 @@
 </template>
 
 <script setup>
+import { onBeforeUnmount } from 'vue';
 import useTodos from '@/utils/useTodos';
 const {
+  timer,
   showModal,
   title,
   todos,
@@ -69,6 +71,13 @@ const {
   todosLen,
   allDone
 } = useTodos();
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount timer.value 1:', timer.value);
+  //清除定时器
+  clearTimeout(timer);
+  timer.value = null;
+  console.log('onBeforeUnmount timer.value 2:', timer.value);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -135,7 +144,7 @@ const {
       }
     }
     .flip-list-move {
-      transition: transform 2s ease;
+      transition: transform 1s ease;
     }
     .flip-list-enter-active,
     .flip-list-leave-active {

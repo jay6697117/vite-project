@@ -60,9 +60,9 @@ let { x, y } = useMouse();
 }
 
 .route-enter-active {
-  transition: all 1s ease-out;
+  transition: all 0.5s ease-out;
 }
 .route-leave-active {
-  transition: all 1s ease-in;
+  transition: all 0.5s ease-in;
 }
 </style>

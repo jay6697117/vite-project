@@ -2,7 +2,7 @@ import { ref, watch } from 'vue';
 
 export default function useFavicon(newIcon) {
   const favicon = ref(newIcon);
-  console.log('favicon :>> ', favicon);
+  // console.log('favicon :>> ', favicon);
 
   const updateIcon = icon => {
     console.log('icon :>> ', icon);

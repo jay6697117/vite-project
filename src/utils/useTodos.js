@@ -3,6 +3,7 @@ import { ref, reactive, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
 import useAnimation from '@/utils/useAnimation.js';
 export default function useTodos() {
+  let timer = ref(null)
   let showModal = ref(false);
   let title = ref('');
   let todos = useStorage('TODOS_VALUE', [
@@ -22,9 +23,10 @@ export default function useTodos() {
     if (!title.value) {
       //输入内容为空
       showModal.value = true;
-      setTimeout(() => {
+      timer.value = setTimeout(() => {
         showModal.value = false;
       }, 2000);
+      console.log('addTodo timer.value:', timer.value);
       return;
     }
     //输入内容为真
@@ -52,6 +54,7 @@ export default function useTodos() {
   });
 
   return {
+    timer,
     showModal,
     title,
     todos,
