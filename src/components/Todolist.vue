@@ -1,9 +1,5 @@
 <template>
   <div class="todos">
-    <transition name="modal">
-      <div class="modal-wrap" v-show="showModal"><div class="modal">哥, 你啥也没输入！</div></div>
-    </transition>
-
     <h2>title:{{ title }}</h2>
     <div class="input">
       输入:
@@ -11,17 +7,22 @@
       &nbsp;
       <button @click="clear" v-if="dosLen">&nbsp;清理&nbsp;</button>
     </div>
+    <!-- 弹框提示过渡动画 -->
+    <transition name="modal">
+      <div class="modal-wrap" v-show="showModal"><div class="modal">哥, 你啥也没输入！</div></div>
+    </transition>
+    <!-- todos列表动画 -->
     <div class="todos-ul">
       <transition-group name="flip-list" tag="ul">
         <template v-if="todos.length">
           <li class="todos-li" v-for="(item, index) in todos" :key="item.id">
             <input class="checkbox" type="checkbox" v-model="item.done" />
             <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-            <span class="clear-one" @click="clearOne(index)">❌</span>
+            <span class="clear-one" @click="clearOne($event, index)">❌</span>
           </li>
         </template>
         <template v-else>
-          <li class="todos-li"><span style="color:rgba(0, 0, 255, 0.6);">暂无数据</span></li>
+          <li class="todos-li"><span style="color: rgba(0, 0, 255, 0.6)">暂无数据</span></li>
         </template>
       </transition-group>
     </div>
@@ -39,12 +40,35 @@
     <div style="padding: 10px 0">
       <button style="padding: 2px 8px" @click="shuffle">洗牌</button>
     </div>
+    <!-- 垃圾桶 -->
+    <span class="dustbin">🗑</span>
+    <!-- 飞入垃圾桶动画 -->
+    <div class="animate-wrap">
+      <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+        <div class="animate" v-show="animate.show">📋</div>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script setup>
 import useTodos from '@/utils/useTodos';
-let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone, clearOne } = useTodos();
+let {
+  showModal,
+  title,
+  todos,
+  animate,
+  beforeEnter,
+  enter,
+  afterEnter,
+  shuffle,
+  clear,
+  addTodo,
+  dosLen,
+  todosLen,
+  allDone,
+  clearOne
+} = useTodos();
 </script>
 
 <style lang="scss" scoped>
@@ -141,6 +165,19 @@ let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDon
     margin: 0 auto;
     padding-top: 5px;
     text-align: left;
+  }
+  .dustbin {
+    font-size: 20px;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+  }
+  .animate-wrap .animate {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 99;
+    transition: all 2s linear;
   }
 }
 </style>

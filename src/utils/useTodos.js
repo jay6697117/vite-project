@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ref, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
 
 export default function useTodos() {
@@ -10,14 +10,39 @@ export default function useTodos() {
     { id: '2', title: '睡觉', done: true }
   ]);
 
+  //animate开始
+  let animate = reactive({
+    show: false,
+    el: null
+  });
+  function beforeEnter(el) {
+    let dom = animate.el;
+    let rect = dom.getBoundingClientRect();
+    let x = window.innerWidth - rect.left - 60;
+    let y = rect.top - 10;
+    el.style.transform = `translate(-${x}px, ${y}px)`;
+  }
+  function enter(el, done) {
+    document.body.offsetHeight;
+    el.style.transform = `translate(0,0)`;
+    el.addEventListener('transitionend', done);
+  }
+  function afterEnter(el) {
+    animate.show = false;
+    el.style.display = 'none';
+  }
+  function clearOne(event, index) {
+    animate.el = event.target;
+    animate.show = true;
+    todos.value.splice(index, 1);
+  }
+  //animate结束
+
   function shuffle() {
     todos.value = _.shuffle(todos.value);
   }
   function clear() {
     todos.value = todos.value.filter(item => !item.done);
-  }
-  function clearOne(index) {
-    todos.value.splice(index, 1);
   }
   function addTodo() {
     if (!title.value) {
@@ -52,5 +77,20 @@ export default function useTodos() {
     }
   });
 
-  return { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone, clearOne };
+  return {
+    showModal,
+    title,
+    todos,
+    animate,
+    beforeEnter,
+    enter,
+    afterEnter,
+    shuffle,
+    clear,
+    addTodo,
+    dosLen,
+    todosLen,
+    allDone,
+    clearOne
+  };
 }
