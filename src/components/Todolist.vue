@@ -18,7 +18,7 @@
           <li class="todos-li" v-for="(item, index) in todos" :key="item.id">
             <input class="checkbox" type="checkbox" v-model="item.done" />
             <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-            <span class="clear-one" @click="clearOne($event, index)">❌</span>
+            <span class="clear-one" @click="clearOne($event, index)">{{ item.title }}❌</span>
           </li>
         </template>
         <template v-else>
@@ -119,10 +119,7 @@ let {
     .todos-li {
       padding-top: 5px;
       width: 200px;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
+      text-align: left;
       .title {
         padding-left: 5px;
       }
@@ -132,7 +129,9 @@ let {
       }
 
       .clear-one {
-        padding-left: 5px;
+        padding: 0 4px;
+        background-color: #ccc;
+        border-radius: 2px;
       }
     }
     .flip-list-move {
@@ -168,16 +167,18 @@ let {
   }
   .dustbin {
     font-size: 20px;
-    position: fixed;
+    position: absolute;
     right: 10px;
     top: 10px;
   }
-  .animate-wrap .animate {
-    position: fixed;
-    right: 10px;
-    top: 10px;
-    z-index: 99;
-    transition: all 2s linear;
+  .animate-wrap {
+    .animate {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 99;
+      transition: all 1s linear;
+    }
   }
 }
 </style>

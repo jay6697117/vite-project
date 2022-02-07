@@ -16,13 +16,16 @@ export default function useTodos() {
     el: null
   });
   function beforeEnter(el) {
+    console.log('beforeEnter el:', el);
     let dom = animate.el;
+    console.log('beforeEnter dom:', dom);
     let rect = dom.getBoundingClientRect();
     let x = window.innerWidth - rect.left - 60;
     let y = rect.top - 10;
     el.style.transform = `translate(-${x}px, ${y}px)`;
   }
   function enter(el, done) {
+    console.log('enter el:', el);
     document.body.offsetHeight;
     el.style.transform = `translate(0,0)`;
     el.addEventListener('transitionend', done);

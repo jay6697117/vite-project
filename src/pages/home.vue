@@ -10,5 +10,7 @@ import Todolist from '@/components/Todolist.vue';
 </script>
 
 <style lang="scss" scoped>
-// .home {}
+.home {
+  position: relative;
+}
 </style>
