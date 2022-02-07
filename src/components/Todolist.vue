@@ -11,15 +11,20 @@
       &nbsp;
       <button @click="clear" v-if="dosLen">&nbsp;清理&nbsp;</button>
     </div>
-    <div class="todos-ul" v-if="todos.length">
+    <div class="todos-ul">
       <transition-group name="flip-list" tag="ul">
-        <li class="todos-li" v-for="item in todos" :key="item.id">
-          <input class="checkbox" type="checkbox" v-model="item.done" />
-          <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-        </li>
+        <template v-if="todos.length">
+          <li class="todos-li" v-for="(item, index) in todos" :key="item.id">
+            <input class="checkbox" type="checkbox" v-model="item.done" />
+            <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
+            <span class="clear-one" @click="clearOne(index)">❌</span>
+          </li>
+        </template>
+        <template v-else>
+          <li class="todos-li"><span style="color:rgba(0, 0, 255, 0.6);">暂无数据</span></li>
+        </template>
       </transition-group>
     </div>
-    <div v-else>暂无数据</div>
     <div class="undo-todo">
       <span style="padding-right: 5px">已做/全部:</span>
       <span style="color: red">{{ dosLen }}/</span>
@@ -39,7 +44,7 @@
 
 <script setup>
 import useTodos from '@/utils/useTodos';
-let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone } = useTodos();
+let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone, clearOne } = useTodos();
 </script>
 
 <style lang="scss" scoped>
@@ -94,20 +99,24 @@ let { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDon
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-    }
-    .title {
-      padding-left: 5px;
-    }
-    .done {
-      color: #ccc;
-      text-decoration: line-through;
+      .title {
+        padding-left: 5px;
+      }
+      .done {
+        color: #ccc;
+        text-decoration: line-through;
+      }
+
+      .clear-one {
+        padding-left: 5px;
+      }
     }
     .flip-list-move {
       transition: transform 2s ease;
     }
     .flip-list-enter-active,
     .flip-list-leave-active {
-      transition: all 10s ease;
+      transition: all 2s ease;
     }
     .flip-list-enter-to,
     .flip-list-leave-from {

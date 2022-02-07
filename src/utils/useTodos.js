@@ -16,6 +16,9 @@ export default function useTodos() {
   function clear() {
     todos.value = todos.value.filter(item => !item.done);
   }
+  function clearOne(index) {
+    todos.value.splice(index, 1);
+  }
   function addTodo() {
     if (!title.value) {
       //输入内容为空
@@ -49,5 +52,5 @@ export default function useTodos() {
     }
   });
 
-  return { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone };
+  return { showModal, title, todos, shuffle, clear, addTodo, dosLen, todosLen, allDone, clearOne };
 }
