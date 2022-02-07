@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { ref, reactive, computed } from 'vue';
 import useStorage from '@/utils/useStorage.js';
-
+import useAnimation from '@/utils/useAnimation.js';
 export default function useTodos() {
   let showModal = ref(false);
   let title = ref('');
@@ -10,36 +10,7 @@ export default function useTodos() {
     { id: '2', title: '睡觉', done: true }
   ]);
 
-  //animate开始
-  let animate = reactive({
-    show: false,
-    el: null
-  });
-  function beforeEnter(el) {
-    console.log('beforeEnter el:', el);
-    let dom = animate.el;
-    console.log('beforeEnter dom:', dom);
-    let rect = dom.getBoundingClientRect();
-    let x = window.innerWidth - rect.left - 60;
-    let y = rect.top - 10;
-    el.style.transform = `translate(-${x}px, ${y}px)`;
-  }
-  function enter(el, done) {
-    console.log('enter el:', el);
-    document.body.offsetHeight;
-    el.style.transform = `translate(0,0)`;
-    el.addEventListener('transitionend', done);
-  }
-  function afterEnter(el) {
-    animate.show = false;
-    el.style.display = 'none';
-  }
-  function clearOne(event, index) {
-    animate.el = event.target;
-    animate.show = true;
-    todos.value.splice(index, 1);
-  }
-  //animate结束
+  let { animate, beforeEnter, enter, afterEnter, removeTodo } = useAnimation({ todos });
 
   function shuffle() {
     todos.value = _.shuffle(todos.value);
@@ -88,12 +59,12 @@ export default function useTodos() {
     beforeEnter,
     enter,
     afterEnter,
+    removeTodo,
     shuffle,
     clear,
     addTodo,
     dosLen,
     todosLen,
-    allDone,
-    clearOne
+    allDone
   };
 }

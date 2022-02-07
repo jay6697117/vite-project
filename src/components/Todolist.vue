@@ -18,7 +18,7 @@
           <li class="todos-li" v-for="(item, index) in todos" :key="item.id">
             <input class="checkbox" type="checkbox" v-model="item.done" />
             <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-            <span class="clear-one" @click="clearOne($event, index)">{{ item.title }}❌</span>
+            <span class="remove-todo" @click="removeTodo($event, index)">{{ item.title }}❌</span>
           </li>
         </template>
         <template v-else>
@@ -53,7 +53,7 @@
 
 <script setup>
 import useTodos from '@/utils/useTodos';
-let {
+const {
   showModal,
   title,
   todos,
@@ -61,13 +61,13 @@ let {
   beforeEnter,
   enter,
   afterEnter,
+  removeTodo,
   shuffle,
   clear,
   addTodo,
   dosLen,
   todosLen,
-  allDone,
-  clearOne
+  allDone
 } = useTodos();
 </script>
 
@@ -75,7 +75,7 @@ let {
 .todos {
   .modal-wrap {
     position: fixed;
-    top: 100px;
+    top: 150px;
     left: 50%;
     transform: translate(-50%, 0);
     .modal {
@@ -128,7 +128,7 @@ let {
         text-decoration: line-through;
       }
 
-      .clear-one {
+      .remove-todo {
         padding: 0 4px;
         background-color: #ccc;
         border-radius: 2px;
@@ -139,7 +139,7 @@ let {
     }
     .flip-list-enter-active,
     .flip-list-leave-active {
-      transition: all 2s ease;
+      transition: all 0.5s ease;
     }
     .flip-list-enter-to,
     .flip-list-leave-from {
@@ -177,7 +177,7 @@ let {
       right: 10px;
       top: 10px;
       z-index: 99;
-      transition: all 1s linear;
+      transition: all 0.5s linear;
     }
   }
 }
