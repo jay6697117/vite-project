@@ -1,15 +1,17 @@
 <template>
-  <Count />
-  <button @click="handleUpdate">更新</button>
-  <button @click="handleReset">重置</button>
-  <hr />
-  <!-- <Rate :rate="rate" :color="color" @updateRate="updateRate" /> -->
-  <Rate v-model:rate="rate" :color="color">
-    <template v-slot:header>
-      <img width="40" src="/favicon.ico" />
-      <div class="rate-slot">我的课程评分:{{ rate }}</div>
-    </template>
-  </Rate>
+  <div class="about">
+    <Count />
+    <button @click="handleUpdate">更新</button>
+    <button @click="handleReset">重置</button>
+    <hr />
+    <!-- <Rate :rate="rate" :color="color" @updateRate="updateRate" /> -->
+    <Rate v-model:rate="rate" :color="color">
+      <template v-slot:header>
+        <img width="40" src="/favicon.ico" />
+        <div class="rate-slot">我的课程评分:{{ rate }}</div>
+      </template>
+    </Rate>
+  </div>
 </template>
 
 <script setup>
@@ -36,18 +38,20 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-button {
-  width: 40px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-button:last-child {
-  margin-right: 0;
-}
+.about {
+  button {
+    width: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+  button:last-child {
+    margin-right: 0;
+  }
 
-.rate-slot {
-  padding: 10px 0;
-  background-color: lightblue;
+  .rate-slot {
+    padding: 10px 0;
+    background-color: lightblue;
+  }
 }
 </style>

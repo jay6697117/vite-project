@@ -1,10 +1,14 @@
 <template>
-  <img width="60" height="60" alt="Vue logo" src="@/assets/logo.png" />
-  <Todolist />
+  <div class="home">
+    <img width="60" height="60" alt="Vue logo" src="@/assets/logo.png" />
+    <Todolist />
+  </div>
 </template>
 
 <script setup>
 import Todolist from '@/components/Todolist.vue';
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// .home {}
+</style>
