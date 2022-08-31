@@ -18,7 +18,8 @@
           <li class="todos-li" v-for="(item, index) in todos" :key="item.id">
             <input class="checkbox" type="checkbox" v-model="item.done" />
             <span class="title" :class="{ done: item.done }">{{ item.title }}</span>
-            <span class="remove-todo" @click="removeTodo($event, index)">{{ item.title }}❌</span>
+            <!-- <span class="remove-todo" @click="removeTodo($event, index)">{{ item.title }}❌</span> -->
+            <span class="remove-todo" @click="removeTodo($event, index)">❌</span>
           </li>
         </template>
         <template v-else>
@@ -139,7 +140,7 @@ onBeforeUnmount(() => {
 
       .remove-todo {
         padding: 0 4px;
-        background-color: #ccc;
+        // background-color: #ccc;
         border-radius: 2px;
       }
     }
