@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let obj = { x: 1, y: 2 };
+      let target = {};
+
+      // 1
+      Object.defineProperties(target, {
+        x: {
+          get() {
+            console.log('get run');
+            return obj.x;
+          },
+          set(newVal) {
+            console.log('set run');
+            console.log('set newVal', newVal);
+            obj.x = newVal;
+          }
+        },
+        y: {
+          get() {
+            console.log('get run');
+            return obj.y;
+          },
+          set(newVal) {
+            console.log('set run');
+            console.log('set newVal', newVal);
+            obj.y = newVal;
+          }
+        }
+      });
+
+      // 2
+      // Object.defineProperty(target, 'x', {
+      //   get() {
+      //     console.log('get run');
+      //     return obj.x;
+      //   },
+      //   set(newVal) {
+      //     console.log('set run');
+      //     console.log('set newVal', newVal);
+      //     obj.x = newVal;
+      //   }
+      // });
+      // Object.defineProperty(target, 'y', {
+      //   get() {
+      //     console.log('get run');
+      //     return obj.y;
+      //   },
+      //   set(newVal) {
+      //     console.log('set run');
+      //     console.log('set newVal', newVal);
+      //     obj.y = newVal;
+      //   }
+      // });
+
+      // 3 Object.keys(obj) ==> forEach ==> Object.defineProperty(target,key,{})
+    </script>
+  </body>
+</html>
