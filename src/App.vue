@@ -26,10 +26,10 @@
 <script setup>
 import { useMouse } from '@/utils/mouse.js';
 import proxy from '@/utils/proxy.js';
-proxy();
 import { useFullscreen } from '@vueuse/core';
-const { isFullscreen, toggle } = useFullscreen();
 let { x, y } = useMouse();
+proxy();
+const { isFullscreen, toggle } = useFullscreen();
 </script>
 
 <style lang="scss" scoped>
